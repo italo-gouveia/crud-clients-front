@@ -1,0 +1,11 @@
+<h3>Clientes</h3>
+
+<div *ngIf="(clients$?.clientVoes | async)?.length>0;else noclients">
+    <ul>
+        <li *ngFor="let c of (clients$?.clientVoes | async)">{{c.name}} - {{c.address}}</li>
+    </ul>
+</div>
+
+<ng-template #noclients>
+    <p>Nenhum cliente encontrado</p>
+</ng-template>

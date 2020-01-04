@@ -1,0 +1,40 @@
+<mat-toolbar>
+  CRUD Clients
+  <span fxFlex></span>
+  <div>
+    <ng-container *ngIf="!(authenticated$ | async)">
+      <button mat-button routerLink="/auth/login">
+        <mat-icon>input</mat-icon>
+        &nbsp;Sign in
+      </button>
+      <button mat-button routerLink="/auth/register">
+        <mat-icon>person_add</mat-icon>
+        &nbsp;Sign up
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="(authenticated$ | async ) && (user$ | async )">
+      <button mat-icon-button routerLink="/main/clients">
+        <mat-icon>home</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <p class="username">{{ (user$ | async)?.userName }}</p>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Exit
+        </button>
+      </mat-menu>
+    </ng-container>
+  </div>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
